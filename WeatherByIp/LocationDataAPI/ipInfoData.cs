@@ -2,7 +2,7 @@
 {
     public class ipInfoData
     {
-        public string ip {  get; set; }
+        public string ip { get; set; }
         public string city { get; set; }
         public string region { get; set; }
         public string country { get; set; }
