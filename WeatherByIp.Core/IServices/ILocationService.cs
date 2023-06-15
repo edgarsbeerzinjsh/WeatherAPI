@@ -1,8 +1,8 @@
 ﻿using WeatherByIp.Core.Models;
 
-namespace WeatherByIp.LocationDataAPI
+namespace WeatherByIp.Core.IServices
 {
-    public interface IIpInfoService
+    public interface ILocationService
     {
         Task<Location> GetLocation(string ip);
     }

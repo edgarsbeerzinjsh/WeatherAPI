@@ -1,15 +1,37 @@
-﻿namespace WeatherByIp
-{
-    public class WeatherParameters
-    {
-        public decimal temperature { get; set; }
-        public decimal windspeed { get; set; }
-        public decimal winddirection { get; set; }
-        public int weathercode { get; set; }
-        public int is_day { get; set;}
-        public DateTime time { get; set; }
+﻿using WeatherByIp.Core.Models;
+using WeatherByIp.Online.WeatherDataAPI;
 
-        public static string GetWeatherDescription(int code)
+namespace WeatherByIp.Services
+{
+    public class OpenMeteoService : IOpenMeteoService
+    {
+        private readonly IWeatherAPI _weatherApi;
+        public OpenMeteoService(IWeatherAPI weatherApi)
+        {
+            _weatherApi = weatherApi;
+        }
+
+        public async Task<Weather> GetWeatherFromCoordinates(decimal latitude, decimal longitude)
+        {
+            var weather = await _weatherApi.GetApiWeather(latitude, longitude);
+
+            if (weather.IsSuccessStatusCode)
+            {
+                return new Weather()
+                {
+                    Latitude = weather.Content.latitude,
+                    Longitude = weather.Content.longitude,
+                    Temperature = weather.Content.current_weather.temperature,
+                    Windspeed = weather.Content.current_weather.windspeed,
+                    WindDirection = weather.Content.current_weather.winddirection,
+                    WeatherState = GetWeatherDescription(weather.Content.current_weather.weathercode)
+                };
+            }
+
+            return null;
+        }
+
+        private string GetWeatherDescription(int code)
         {
             var codeDescription = new Dictionary<int, string>()
             {

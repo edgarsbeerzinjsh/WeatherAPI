@@ -1,6 +1,4 @@
-﻿using WeatherByIp.Core.Models;
-
-namespace WeatherByIp.Models
+﻿namespace WeatherByIp.Core.Models
 {
     public class ApiReturnInfo
     {

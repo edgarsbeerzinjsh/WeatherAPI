@@ -1,6 +1,6 @@
-﻿namespace WeatherByIp
+﻿namespace WeatherByIp.Online.LocationDataAPI
 {
-    public class ipInfoData
+    public class IpInfoData
     {
         public string ip { get; set; }
         public string city { get; set; }

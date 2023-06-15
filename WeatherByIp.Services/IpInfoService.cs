@@ -1,7 +1,7 @@
-﻿using System.Net;
-using WeatherByIp.Core.Models;
+﻿using WeatherByIp.Core.Models;
+using WeatherByIp.Online.LocationDataAPI;
 
-namespace WeatherByIp.LocationDataAPI
+namespace WeatherByIp.Services
 {
     public class IpInfoService : IIpInfoService
     {
@@ -11,9 +11,9 @@ namespace WeatherByIp.LocationDataAPI
             _locationApi = location;
         }
 
-        public async Task<Location> GetLocation(string ip)
+        public async Task<Location> GetMyLocation(string ip)
         {
-            var location = await _locationApi.GetLocation(ip);
+            var location = await _locationApi.GetApiLocation(ip);
             if (location.IsSuccessStatusCode)
             {
                 var coordinates = GetCoordinates(location.Content.loc);

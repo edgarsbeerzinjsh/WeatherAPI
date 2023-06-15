@@ -24,6 +24,7 @@
   <ItemGroup>
     <ProjectReference Include="..\WeatherByIp.Core\WeatherByIp.Core.csproj" />
     <ProjectReference Include="..\WeatherByIp.Data\WeatherByIp.Data.csproj" />
+    <ProjectReference Include="..\WeatherByIp.Online\WeatherByIp.Online.csproj" />
     <ProjectReference Include="..\WeatherByIp.Services\WeatherByIp.Services.csproj" />
   </ItemGroup>
 
