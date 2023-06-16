@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using WeatherByIp.Core.IServices;
-
+using WeatherByIp.Services.Validations;
 
 namespace WeatherByIp.Controllers
 {
@@ -9,17 +10,18 @@ namespace WeatherByIp.Controllers
     public class WeatherController : ControllerBase
     {
         private readonly IApiReturnInfoService _apiReturnInfoService;
+        private readonly IValidationOfIpAddress _validationOfIpAddress;
 
-        public WeatherController(IApiReturnInfoService apiReturnInfoService)
+        public WeatherController(IApiReturnInfoService apiReturnInfoService, IValidationOfIpAddress validationOfIpAddress)
         {
             _apiReturnInfoService = apiReturnInfoService;
+            _validationOfIpAddress = validationOfIpAddress;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetWeather(string ipstring)
+        public async Task<IActionResult> GetWeather()
         {
-            //string ipAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
-            var ipAddress = ipstring;
+            string ipAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
 
             var returnInfo = await _apiReturnInfoService.GetCurrentWeather(ipAddress);
             if (returnInfo != null)
@@ -34,13 +36,21 @@ namespace WeatherByIp.Controllers
         [Route("Ip")]
         public async Task<IActionResult> CheckWeather(string ipAddress)
         {
-            var returnInfo = await _apiReturnInfoService.GetCurrentWeather(ipAddress);
+            var validIp = _validationOfIpAddress.IsValidIpAddress(ipAddress);
+            if (validIp == null)
+            {
+                return BadRequest("Not valid IP address provided");
+            }
+
+            var returnInfo = await _apiReturnInfoService.GetCurrentWeather(validIp.ToString());
             if (returnInfo != null)
             {
                 return Ok(returnInfo);
             }
 
-            return NotFound();
+
+
+            return NotFound("Did not get current weather information from network");
         }
     }
 }

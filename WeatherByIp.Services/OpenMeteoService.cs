@@ -1,4 +1,5 @@
 ﻿using WeatherByIp.Core.Models;
+using WeatherByIp.Online.LocationDataAPI;
 using WeatherByIp.Online.WeatherDataAPI;
 
 namespace WeatherByIp.Services
@@ -6,17 +7,24 @@ namespace WeatherByIp.Services
     public class OpenMeteoService : IOpenMeteoService
     {
         private readonly IWeatherAPI _weatherApi;
-        public OpenMeteoService(IWeatherAPI weatherApi)
+        private readonly IEnumerable<IOpenMeteoDataValidation> _validators;
+        public OpenMeteoService(IWeatherAPI weatherApi, IEnumerable<IOpenMeteoDataValidation> validators)
         {
             _weatherApi = weatherApi;
+            _validators = validators;
         }
 
         public async Task<Weather> GetWeatherFromCoordinates(decimal latitude, decimal longitude)
         {
-            var weather = await _weatherApi.GetApiWeather(latitude, longitude);
-
-            if (weather.IsSuccessStatusCode)
+            try
             {
+                var weather = await _weatherApi.GetApiWeather(latitude, longitude);
+                
+                if (!_validators.All(v => v.IsValidWeatherData(weather)))
+                {
+                    return null;
+                }
+
                 return new Weather()
                 {
                     Latitude = weather.Content.latitude,
@@ -27,8 +35,10 @@ namespace WeatherByIp.Services
                     WeatherState = GetWeatherDescription(weather.Content.current_weather.weathercode)
                 };
             }
-
-            return null;
+            catch
+            {
+                return null;
+            }
         }
 
         private string GetWeatherDescription(int code)
