@@ -1,7 +1,8 @@
 namespace WeatherByIp.Tests
 {
-    public class Tests
+    public class IpInfoServiceTests
     {
+
         [SetUp]
         public void Setup()
         {
