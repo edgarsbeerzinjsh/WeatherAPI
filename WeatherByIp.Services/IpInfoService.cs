@@ -1,5 +1,4 @@
-﻿using Refit;
-using WeatherByIp.Core.Models;
+﻿using WeatherByIp.Core.Models;
 using WeatherByIp.Online.LocationDataAPI;
 
 namespace WeatherByIp.Services
@@ -23,7 +22,7 @@ namespace WeatherByIp.Services
                 if (!_validators.All(v => v.IsValidLocationData(location)))
                 {
                     return null;
-                }
+                };
 
                 var coordinates = GetCoordinates(location.Content.loc);
 
@@ -44,10 +43,9 @@ namespace WeatherByIp.Services
 
         private (decimal latitude, decimal longitude) GetCoordinates(string location)
         {
-            decimal.TryParse(location.Split(',')[0], out var latitude);
-            decimal.TryParse(location.Split(',')[1], out var longitude);
+            var coordinates = location.Split(',');
 
-            return (latitude, longitude);
+            return (decimal.Parse(coordinates[0]), decimal.Parse(coordinates[1]));
         }
     }
 }

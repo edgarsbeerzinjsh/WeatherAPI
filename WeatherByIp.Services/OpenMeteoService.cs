@@ -1,5 +1,4 @@
 ﻿using WeatherByIp.Core.Models;
-using WeatherByIp.Online.LocationDataAPI;
 using WeatherByIp.Online.WeatherDataAPI;
 
 namespace WeatherByIp.Services
@@ -23,7 +22,7 @@ namespace WeatherByIp.Services
                 if (!_validators.All(v => v.IsValidWeatherData(weather)))
                 {
                     return null;
-                }
+                };
 
                 return new Weather()
                 {

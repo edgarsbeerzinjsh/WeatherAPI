@@ -10,7 +10,7 @@ namespace WeatherByIp.Services.Validations.OpenMeteoDataValidations
             if (openMeteoData.Content?.longitude == null)
             {
                 return false;
-            }
+            };
 
             return openMeteoData.Content?.longitude >= -180 && openMeteoData.Content?.longitude <= 180;
         }

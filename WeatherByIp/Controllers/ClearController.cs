@@ -15,6 +15,7 @@ namespace WeatherByIp.Controllers
             _locationService = locationService;
             _weatherService = weatherService;
         }
+
         [HttpDelete]
         public async Task<IActionResult> DeleteDb()
         {

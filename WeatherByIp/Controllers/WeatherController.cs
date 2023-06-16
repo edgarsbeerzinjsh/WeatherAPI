@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
 using WeatherByIp.Core.IServices;
-using WeatherByIp.Services.Validations;
 
 namespace WeatherByIp.Controllers
 {
@@ -27,9 +25,9 @@ namespace WeatherByIp.Controllers
             if (returnInfo != null)
             {
                 return Ok(returnInfo);
-            }
+            };
 
-            return NotFound();
+            return NotFound("Did not get current weather information from network");
         }
 
         [HttpGet]
@@ -40,13 +38,13 @@ namespace WeatherByIp.Controllers
             if (validIp == null)
             {
                 return BadRequest("Not valid IP address provided");
-            }
+            };
 
             var returnInfo = await _apiReturnInfoService.GetCurrentWeather(validIp.ToString());
             if (returnInfo != null)
             {
                 return Ok(returnInfo);
-            }
+            };
 
 
 

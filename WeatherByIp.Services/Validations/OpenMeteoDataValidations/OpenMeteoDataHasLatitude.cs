@@ -10,7 +10,7 @@ namespace WeatherByIp.Services.Validations.OpenMeteoDataValidations
             if (openMeteoData.Content?.latitude == null)
             {
                 return false;
-            }
+            };
 
             return openMeteoData.Content?.latitude >= -90 && openMeteoData.Content?.latitude <= 90;
         }

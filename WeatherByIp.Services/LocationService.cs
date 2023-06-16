@@ -27,13 +27,13 @@ namespace WeatherByIp.Services
             if (dbData != null)
             {
                 return SaveNewLocation(dbData);
-            }
+            };
 
             var onlineData = await _ipInfoService.GetMyLocation(ip);
             if (onlineData != null)
             {
                 return SaveNewLocation(onlineData);
-            }
+            };
 
             return null;
         }

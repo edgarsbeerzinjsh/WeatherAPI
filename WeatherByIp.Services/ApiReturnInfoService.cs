@@ -33,14 +33,15 @@ namespace WeatherByIp.Services
             if (location == null)
             {
                 return null;
-            }
+            };
 
             var onlineWeather = await _openMeteoService.GetWeatherFromCoordinates(location.Latitude, location.Longitude);
             if (onlineWeather != null)
             {
                 Create(onlineWeather);
                 return SaveNewApiReturnInfo(new ApiReturnInfo(location, onlineWeather));
-            }
+            };
+
             return null;
         }
 

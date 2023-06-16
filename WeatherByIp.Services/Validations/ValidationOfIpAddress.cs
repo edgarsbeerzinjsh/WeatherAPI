@@ -1,7 +1,5 @@
 ﻿using System.Net;
-using System.Net.NetworkInformation;
 using WeatherByIp.Core.IServices;
-using WeatherByIp.Online;
 
 namespace WeatherByIp.Services.Validations
 {
@@ -12,7 +10,7 @@ namespace WeatherByIp.Services.Validations
             if (IPAddress.TryParse(ipAddress, out var ip))
             {
                 return ip;
-            }
+            };
 
             return null;
         }
