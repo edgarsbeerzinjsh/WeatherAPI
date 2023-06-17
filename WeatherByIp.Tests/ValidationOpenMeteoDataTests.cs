@@ -194,20 +194,20 @@ namespace WeatherByIp.Tests
             result.Should().BeTrue();
         }
 
-        //[Test]
-        //public void IsValidWeatherData_HasNoLatitude_ReturnFalse()
-        //{
-        //    _validationStatus = new OpenMeteoDataHasLatitude();
-        //    var response = new ApiResponse<OpenMeteoData>(
-        //        _defaultResponseMessage,
-        //        new OpenMeteoData() {},
-        //        _defaultRefitSettings
-        //    );
+        [Test]
+        public void IsValidWeatherData_HasNoLatitude_ReturnFalse()
+        {
+            _validationStatus = new OpenMeteoDataHasLatitude();
+            var response = new ApiResponse<OpenMeteoData>(
+                _defaultResponseMessage,
+                null,
+                _defaultRefitSettings
+            );
 
-        //    var result = _validationStatus.IsValidWeatherData(response);
+            var result = _validationStatus.IsValidWeatherData(response);
 
-        //    result.Should().BeFalse();
-        //}
+            result.Should().BeFalse();
+        }
 
         [Test]
         [TestCase(-200)]
@@ -241,20 +241,20 @@ namespace WeatherByIp.Tests
             result.Should().BeTrue();
         }
 
-        //[Test]
-        //public void IsValidWeatherData_HasNoLongitude_ReturnFalse()
-        //{
-        //    _validationStatus = new OpenMeteoDataHasLongitude();
-        //    var response = new ApiResponse<OpenMeteoData>(
-        //        _defaultResponseMessage,
-        //        new OpenMeteoData() { },
-        //        _defaultRefitSettings
-        //    );
+        [Test]
+        public void IsValidWeatherData_HasNoLongitude_ReturnFalse()
+        {
+            _validationStatus = new OpenMeteoDataHasLongitude();
+            var response = new ApiResponse<OpenMeteoData>(
+                _defaultResponseMessage,
+                null,
+                _defaultRefitSettings
+            );
 
-        //    var result = _validationStatus.IsValidWeatherData(response);
+            var result = _validationStatus.IsValidWeatherData(response);
 
-        //    result.Should().BeFalse();
-        //}
+            result.Should().BeFalse();
+        }
 
         [Test]
         [TestCase(-200)]

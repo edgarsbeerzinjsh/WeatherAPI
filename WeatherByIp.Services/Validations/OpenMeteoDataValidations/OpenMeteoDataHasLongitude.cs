@@ -7,10 +7,10 @@ namespace WeatherByIp.Services.Validations.OpenMeteoDataValidations
     {
         public bool IsValidWeatherData(ApiResponse<OpenMeteoData> openMeteoData)
         {
-            if (openMeteoData.Content?.longitude == null)
+            if (openMeteoData.Content?.latitude == null)
             {
                 return false;
-            };
+            }
 
             return openMeteoData.Content?.longitude >= -180 && openMeteoData.Content?.longitude <= 180;
         }
