@@ -17,7 +17,7 @@ namespace WeatherByIp.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteDb()
+        public IActionResult DeleteDb()
         {
             _locationService.ClearAll();
             _weatherService.ClearAll();

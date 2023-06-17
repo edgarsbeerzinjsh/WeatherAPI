@@ -1,5 +1,4 @@
 ﻿using WeatherByIp.Core.Models;
-using WeatherByIp.Online.LocationDataAPI;
 using WeatherByIp.Online.WeatherDataAPI;
 
 namespace WeatherByIp.Services
