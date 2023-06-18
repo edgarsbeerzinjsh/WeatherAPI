@@ -32,6 +32,7 @@ namespace WeatherByIp.Services
             var onlineData = await _ipInfoService.GetMyLocation(ip);
             if (onlineData != null)
             {
+                Create(onlineData);
                 return SaveNewLocation(onlineData);
             };
 
@@ -40,8 +41,6 @@ namespace WeatherByIp.Services
 
         private Location SaveNewLocation(Location location)
         {
-            Create(location);
-
             _cache.Set($"Location_{location.Ip}", location, new MemoryCacheEntryOptions()
                 .SetAbsoluteExpiration(TimeSpan.FromMinutes(10)));
 

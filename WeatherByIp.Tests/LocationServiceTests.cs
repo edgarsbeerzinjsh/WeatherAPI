@@ -17,74 +17,88 @@ namespace WeatherByIp.Tests
         private LocationService _locationService;
         private MemoryCache _cache;
         private Mock<IIpInfoService> _ipInfoService;
-        private Mock<IWeatherByIpDbContext> _context;
+        private WeatherByIpDbContext _context;
+        private DbService<Location> _dbLocation;
 
         [SetUp]
         public void Setup()
         {
             _cache = new MemoryCache(new MemoryCacheOptions());
             _ipInfoService = new Mock<IIpInfoService>();
-            _context = new Mock<IWeatherByIpDbContext>();
+            SetUpCache();
+            SetUpDb();
+            SetUpApi();
+            _locationService = new LocationService(_context, _cache, _ipInfoService.Object);
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            _context.Database.EnsureDeleted();
         }
 
         [Test]
         public async Task GetLocation_cacheIp_LocationFromCacheReturned()
         {
             var ip = cacheLocation.Ip;
-            _cache.Set($"Location_{ip}", cacheLocation, TimeSpan.FromMinutes(2));
-
-            //_context
-            //    .Setup(d => d.Locations.FirstOrDefault(l => l.Ip == ip))
-            //    .Returns(dbLocation);
-            _ipInfoService
-                .Setup(a => a.GetMyLocation(ip))
-                .ReturnsAsync(apiLocation);
-
-            _locationService = new LocationService(_context.Object, _cache, _ipInfoService.Object);
 
             var result = await _locationService.GetLocation(ip);
 
             result.Should().BeEquivalentTo(cacheLocation);
         }
 
-        //[Test]
-        //public async Task GetLocation_dbIp_LocationFromDbReturned()
-        //{
-        //    var ip = cacheLocation.Ip;
-        //    _cache.Set($"Location_{ip}", cacheLocation, TimeSpan.FromMinutes(2));
+        [Test]
+        public async Task GetLocation_dbIp_LocationFromDbReturned()
+        {
+            var ip = dbLocation.Ip;
 
-        //    //_context
-        //    //    .Setup(d => d.Locations.FirstOrDefault(l => l.Ip == ip))
-        //    //    .Returns(dbLocation);
-        //    _ipInfoService
-        //        .Setup(a => a.GetMyLocation(ip))
-        //        .ReturnsAsync(apiLocation);
+            var result = await _locationService.GetLocation(ip);
 
-        //    _locationService = new LocationService(_context.Object, _cache, _ipInfoService.Object);
-
-        //    var result = await _locationService.GetLocation(ip);
-
-        //    result.Should().BeEquivalentTo(cacheLocation);
-        //}
+            result.Should().BeEquivalentTo(dbLocation);
+        }
 
         [Test]
         public async Task GetLocation_apiIp_LocationFromApiReturned()
         {
             var ip = apiLocation.Ip;
-            //_cache.Set($"Location_{ip}", cacheLocation, TimeSpan.FromMinutes(2));
-
-            //_context
-            //    .Setup(d => d.Locations.FirstOrDefault(l => l.Ip == ip))
-            //    .Returns(dbLocation);
-            //_ipInfoService
-            //    .Setup(a => a.GetMyLocation(ip))
-            //    .ReturnsAsync(apiLocation);
-
-            _locationService = new LocationService(_context.Object, _cache, _ipInfoService.Object);
 
             var result = await _locationService.GetLocation(ip);
 
             result.Should().BeEquivalentTo(apiLocation);
+        }
+
+        [Test]
+        public async Task GetLocation_randomIp_NullReturned()
+        {
+            var ip = "1.1.1.1";
+
+            var result = await _locationService.GetLocation(ip);
+
+            result.Should().BeNull();
+        }
+
+        private void SetUpCache()
+        {
+            _cache.Set($"Location_{cacheLocation.Ip}", cacheLocation, TimeSpan.FromMinutes(2));
+        }
+
+        private void SetUpDb()
+        {
+            var options = new DbContextOptionsBuilder<WeatherByIpDbContext>()
+                .UseInMemoryDatabase("TestDb")
+                .Options;
+
+            _context = new WeatherByIpDbContext(options);
+            _context.Database.EnsureCreated();
+            _dbLocation = new DbService<Location>(_context);
+            _dbLocation.Create(dbLocation);
+        }
+
+        private void SetUpApi()
+        {
+            _ipInfoService
+                .Setup(a => a.GetMyLocation(apiLocation.Ip))
+                .ReturnsAsync(apiLocation);
         }
 
         private Location cacheLocation = new Location
@@ -107,20 +121,6 @@ namespace WeatherByIp.Tests
             Latitude = 48.8323M,
             Longitude = 2.4075M,
             EntryDateTime = DateTime.Now
-        };
-
-        private List<Location> dbSetLocations = new List<Location>()
-        {
-            new Location
-            {
-                Id = 112,
-                City = "Paris",
-                Country = "FR",
-                Ip = "13.36.82.241",
-                Latitude = 48.8323M,
-                Longitude = 2.4075M,
-                EntryDateTime = DateTime.Now
-            }
         };
 
         private Location apiLocation = new Location
