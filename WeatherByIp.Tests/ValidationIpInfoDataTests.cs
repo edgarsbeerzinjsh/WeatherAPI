@@ -8,7 +8,6 @@ namespace WeatherByIp.Tests
 {
     public class ValidationIpInfoDataTests
     {
-        //private Mock<ApiResponse<IpInfoData>> _apiResponse;
         private IIpInfoDataValidation _validationStatus;
         private RefitSettings _defaultRefitSettings = new RefitSettings();
         private HttpResponseMessage _defaultResponseMessage = new HttpResponseMessage(HttpStatusCode.OK);
@@ -17,8 +16,6 @@ namespace WeatherByIp.Tests
         [SetUp]
         public void Setup()
         {
-            //_validationStatus = new IpInfoDataIsSuccessStatusCode();
-            //_apiResponse = new Mock<ApiResponse<IpInfoData>>();
         }
 
         [Test]
@@ -30,10 +27,6 @@ namespace WeatherByIp.Tests
                 _defaultIpInfoData,
                 _defaultRefitSettings
             );
-            //_apiResponse
-            //    .Setup(api => api.IsSuccessStatusCode)
-            //    .Returns(true);
-            //var response = _apiResponse.Object;
 
             var result = _validationStatus.IsValidLocationData(response);
 

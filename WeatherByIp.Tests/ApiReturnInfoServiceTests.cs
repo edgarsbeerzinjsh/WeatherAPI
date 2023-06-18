@@ -5,7 +5,6 @@ using Moq;
 using WeatherByIp.Core.IServices;
 using WeatherByIp.Core.Models;
 using WeatherByIp.Data;
-using WeatherByIp.Online.LocationDataAPI;
 using WeatherByIp.Online.WeatherDataAPI;
 using WeatherByIp.Services;
 

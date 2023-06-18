@@ -1,14 +1,11 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using Moq;
-using System.ComponentModel.DataAnnotations;
-using System.Linq.Expressions;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using WeatherByIp.Core.Models;
 using WeatherByIp.Data;
 using WeatherByIp.Online.LocationDataAPI;
 using WeatherByIp.Services;
-using MockQueryable.Moq;
 
 namespace WeatherByIp.Tests
 {

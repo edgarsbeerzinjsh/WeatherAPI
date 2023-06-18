@@ -8,7 +8,6 @@ namespace WeatherByIp.Tests
 {
     public class ValidationOpenMeteoDataTests
     {
-        //private Mock<ApiResponse<OpenMeteoData>> _apiResponse;
         private IOpenMeteoDataValidation _validationStatus;
         private RefitSettings _defaultRefitSettings = new RefitSettings();
         private HttpResponseMessage _defaultResponseMessage = new HttpResponseMessage(HttpStatusCode.OK);
@@ -18,8 +17,6 @@ namespace WeatherByIp.Tests
         [SetUp]
         public void Setup()
         {
-            //_validationStatus = new OpenMeteoDataIsSuccessStatusCode();
-            //_apiResponse = new Mock<ApiResponse<OpenMeteoData>>();
         }
 
         [Test]
@@ -31,10 +28,6 @@ namespace WeatherByIp.Tests
                 _defaulOpenMeteoData,
                 _defaultRefitSettings
             );
-            //_apiResponse
-            //    .Setup(api => api.IsSuccessStatusCode)
-            //    .Returns(true);
-            //var response = _apiResponse.Object;
 
             var result = _validationStatus.IsValidWeatherData(response);
 
