@@ -4,7 +4,7 @@ using WeatherByIp.Core.IServices;
 namespace WeatherByIp.Controllers
 {
     [ApiController]
-    [Route("weather")]
+    [Route("weatherIp")]
     public class WeatherController : ControllerBase
     {
         private readonly IApiReturnInfoService _apiReturnInfoService;
@@ -17,6 +17,7 @@ namespace WeatherByIp.Controllers
         }
 
         [HttpGet]
+        [Route("{ipAddress}")]
         public async Task<IActionResult> CheckWeather(string ipAddress)
         {
             var validIp = _validationOfIpAddress.IsValidIpAddress(ipAddress);

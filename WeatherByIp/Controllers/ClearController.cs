@@ -4,7 +4,7 @@ using WeatherByIp.Core.Models;
 
 namespace WeatherByIp.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("clearDb")]
     [ApiController]
     public class ClearController : ControllerBase
     {

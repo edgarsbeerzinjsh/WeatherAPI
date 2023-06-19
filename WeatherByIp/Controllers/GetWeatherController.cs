@@ -3,7 +3,7 @@ using WeatherByIp.Core.IServices;
 
 namespace WeatherByIp.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("weather")]
     [ApiController]
     public class GetWeatherController : ControllerBase
     {
@@ -17,7 +17,8 @@ namespace WeatherByIp.Controllers
         [HttpGet]
         public async Task<IActionResult> GetWeather()
         {
-            var ipAddress = Request.HttpContext.Connection.RemoteIpAddress;
+            //var ipAddress = Request.HttpContext.Connection.RemoteIpAddress;
+            var ipAddress = Request.Headers["X-Forwarded-For"].FirstOrDefault();
 
             var returnInfo = await _apiReturnInfoService.GetCurrentWeather(ipAddress.ToString());
             if (returnInfo != null)
