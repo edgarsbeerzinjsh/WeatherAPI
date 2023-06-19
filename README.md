@@ -10,7 +10,7 @@ Functionality
 
 <p align="center">
   <b>Deployed example</b><br>
-  <img src="./WeatherWorkingExample.gif" alt="Weather Working Example" width=300px>
+  <img src="./WeatherWorkingExample.gif" alt="Weather Working Example" width=500px>
 </p>
 
 ## The API offers the following features:
