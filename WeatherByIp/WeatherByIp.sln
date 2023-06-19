@@ -11,9 +11,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherByIp.Core", "..\Weat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherByIp.Services", "..\WeatherByIp.Services\WeatherByIp.Services.csproj", "{480F96D5-F5E1-4384-A3A8-23E68836D301}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherByIp.Online", "..\WeatherByIp.Online\WeatherByIp.Online.csproj", "{DE8077CA-7320-48C0-B024-2A13905A5992}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherByIp.Online", "..\WeatherByIp.Online\WeatherByIp.Online.csproj", "{DE8077CA-7320-48C0-B024-2A13905A5992}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherByIp.Tests", "..\WeatherByIp.Tests\WeatherByIp.Tests.csproj", "{8E9C2E6C-C22A-4199-9426-A16DEE510197}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherByIp.Tests", "..\WeatherByIp.Tests\WeatherByIp.Tests.csproj", "{8E9C2E6C-C22A-4199-9426-A16DEE510197}"
+	ProjectSection(ProjectDependencies) = postProject
+		{03C94178-3297-4850-9DC7-86E7F2563ADF} = {03C94178-3297-4850-9DC7-86E7F2563ADF}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

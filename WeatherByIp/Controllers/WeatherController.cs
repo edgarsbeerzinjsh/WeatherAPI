@@ -17,21 +17,6 @@ namespace WeatherByIp.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetWeather()
-        {
-            string ipAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
-
-            var returnInfo = await _apiReturnInfoService.GetCurrentWeather(ipAddress);
-            if (returnInfo != null)
-            {
-                return Ok(returnInfo);
-            };
-
-            return NotFound("Did not get current weather information from network");
-        }
-
-        [HttpGet]
-        [Route("Ip")]
         public async Task<IActionResult> CheckWeather(string ipAddress)
         {
             var validIp = _validationOfIpAddress.IsValidIpAddress(ipAddress);
@@ -45,8 +30,6 @@ namespace WeatherByIp.Controllers
             {
                 return Ok(returnInfo);
             };
-
-
 
             return NotFound("Did not get current weather information from network");
         }

@@ -17,7 +17,6 @@ namespace WeatherByIp.Tests
         private Mock<IOpenMeteoService> _openMeteoService;
         private Mock<ILocationService> _locationService;
         private WeatherByIpDbContext _context;
-        private DbService<Weather> _dbWeather;
 
         [SetUp]
         public void Setup()
@@ -101,7 +100,7 @@ namespace WeatherByIp.Tests
 
             _context = new WeatherByIpDbContext(options);
             _context.Database.EnsureCreated();
-            _dbWeather = new DbService<Weather>(_context);
+            new DbService<Weather>(_context);
         }
 
         private void SetUpDbLocationMock()

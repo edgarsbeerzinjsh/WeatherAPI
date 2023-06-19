@@ -12,7 +12,6 @@ namespace WeatherByIp.Tests
         private RefitSettings _defaultRefitSettings = new RefitSettings();
         private HttpResponseMessage _defaultResponseMessage = new HttpResponseMessage(HttpStatusCode.OK);
         private OpenMeteoData _defaulOpenMeteoData = new OpenMeteoData();
-        private WeatherParameters _defaultWeatherParameters = new WeatherParameters();
 
         [SetUp]
         public void Setup()
