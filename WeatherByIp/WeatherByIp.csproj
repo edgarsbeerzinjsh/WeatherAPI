@@ -28,4 +28,10 @@
     <ProjectReference Include="..\WeatherByIp.Services\WeatherByIp.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="AppData\WeatherByIpDB.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
