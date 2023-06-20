@@ -17,8 +17,7 @@ namespace WeatherByIp.Controllers
         [HttpGet]
         public async Task<IActionResult> GetWeather()
         {
-            //var ipAddress = Request.HttpContext.Connection.RemoteIpAddress;
-            var ipAddress = Request.Headers["X-Forwarded-For"].FirstOrDefault();
+            var ipAddress = Request.HttpContext.Connection.RemoteIpAddress;
 
             var returnInfo = await _apiReturnInfoService.GetCurrentWeather(ipAddress.ToString());
             if (returnInfo != null)
